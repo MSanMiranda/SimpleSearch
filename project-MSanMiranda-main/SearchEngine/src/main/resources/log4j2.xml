@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE log4j:configuration>
+<!-- Status determines which log4j log messages are included. PROJECT -->
+<Configuration status="WARN">
+	<Appenders>
+		<!-- We can make the console output more user-friendly if we want. -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%m%throwable{short.localizedMessage}%n">
+			</PatternLayout>
+		</Console>
+
+		<!-- We can still keep details in a file log for debugging. -->
+		<File name="FileLog" fileName="debug.log" append="true">
+			<PatternLayout
+				pattern="[%03sequenceNumber %level{lowerCase=true}] %class.%method %t: %m %ex{3}%n">
+			</PatternLayout>
+		</File>
+	</Appenders>
+
+	<Loggers>
+		<!-- You can modify per-class logging levels if you want. -->
+		<Logger name="Driver" additivity="false">
+			<AppenderRef level="ALL" ref="FileLog" />
+			<AppenderRef level="OFF" ref="Console" />
+		</Logger>
+		<Logger name="InvertedIndex" additivity="false">
+			<AppenderRef level="ALL" ref="FileLog" />
+			<AppenderRef level="DEBUG" ref="Console" />
+		</Logger>
+		<Logger name="InvertedIndexMulti" additivity="false">
+			<AppenderRef level="ALL" ref="FileLog" />
+			<AppenderRef level="OFF" ref="Console" />
+		</Logger>
+		<Logger name="InvertedIndexMulti" additivity="false">
+			<AppenderRef level="ALL" ref="FileLog" />
+			<AppenderRef level="DEBUG" ref="Console" />
+		</Logger>
+
+		<!-- This is the configuration used by all other loggers. -->
+		<Root level="ALL">
+			<AppenderRef ref="Console" level="INFO" />
+			<AppenderRef ref="FileLog" level="ALL"  />
+		</Root>
+	</Loggers>
+</Configuration>
